@@ -1,91 +1,107 @@
-# Ejecutor de Scripts SQL en Múltiples Bases de Datos PostgreSQL
+# 🔹 Ejecutor de Scripts SQL en Múltiples Bases de Datos PostgreSQL
 
-Este proyecto es un script en Python que permite ejecutar scripts SQL de forma interactiva en varias bases de datos de un servidor PostgreSQL. Incorpora medidas de seguridad mediante autenticación basada en hash SHA-256, y cuenta con una interfaz amigable que utiliza arte ASCII y mensajes coloreados.
+Este proyecto es un script en Python diseñado para ejecutar consultas SQL de manera interactiva en múltiples bases de datos dentro de un servidor PostgreSQL. Implementa medidas de seguridad mediante autenticación basada en hash SHA-256 y ofrece una interfaz optimizada con arte ASCII y mensajes coloreados para mejorar la experiencia del usuario.
 
-## Características
+---
 
-- **Autenticación Segura:** Solicita al usuario una clave y la valida comparando su hash SHA-256 con un hash almacenado.
-- **Selección Interactiva de Bases de Datos:** Permite listar y seleccionar las bases de datos en las que se ejecutará el script SQL, ya sea seleccionando índices o eligiendo todas.
-- **Ejecución de Scripts SQL:** Soporta la ejecución de múltiples consultas SQL ingresadas por el usuario, separadas por punto y coma.
-- **Mensajes Visualmente Atractivos:** Utiliza la librería Colorama para imprimir mensajes de estado con colores.
-- **Arte ASCII:** Muestra un encabezado con arte ASCII al iniciar la ejecución del script.
+## 🚀 Características
 
-## Requisitos
+✅ **Autenticación Segura:** Protege el acceso al sistema mediante una clave cuya validación se realiza con SHA-256.  
+✅ **Selección Interactiva de Bases de Datos:** Permite elegir en qué bases de datos ejecutar los scripts, ya sea seleccionándolas individualmente o todas a la vez.  
+✅ **Ejecución de Scripts SQL:** Soporta la ejecución de múltiples consultas SQL separadas por punto y coma.  
+✅ **Mensajes Visuales Mejorados:** Utiliza la librería `colorama` para mostrar mensajes con colores intuitivos.  
+✅ **Interfaz Estética:** Muestra un encabezado con arte ASCII para mejorar la experiencia visual.  
 
-- **Python 3.x**
-- **PostgreSQL** (Acceso a un servidor PostgreSQL)
-- **Librerías de Python:**
-  - [psycopg2](https://www.psycopg.org/)
-  - [colorama](https://pypi.org/project/colorama/)
+---
 
-## Instalación
+## 📌 Requisitos
 
-1. **Clonar el repositorio o descargar el script:**
+🔹 **Python 3.x**  
+🔹 **PostgreSQL** (Acceso a un servidor PostgreSQL)  
+🔹 **Librerías Necesarias:**
+   - [`psycopg2`](https://www.psycopg.org/) (para la conexión con PostgreSQL)
+   - [`colorama`](https://pypi.org/project/colorama/) (para mejorar la visualización de mensajes)  
 
+---
+
+## ⚙️ Instalación
+
+1️⃣ **Clona el repositorio o descarga el script:**
    ```bash
-   git clone https://github.com/tu_usuario/tu_repositorio.git
-   cd tu_repositorio
+   git clone https://github.com/mendozaro25/script-differentdbs
+   cd script-differentdbs
    ```
 
-2. **Instalar las dependencias:**
-
-   Utiliza `pip` para instalar las librerías necesarias:
-
+2️⃣ **Instala las dependencias:**
    ```bash
-   pip install psycopg2 colorama
+   pip install requirements.txt
    ```
 
-## Configuración
+---
+
+## 🛠️ Configuración
 
 Antes de ejecutar el script, asegúrate de configurar las siguientes variables dentro del código:
 
-- **Credenciales del Servidor PostgreSQL:**
-  - `DB_HOST`: Dirección IP o nombre del host del servidor.
-  - `DB_PORT`: Puerto del servidor (por defecto, 5432).
-  - `DB_USER`: Usuario con permisos para acceder a las bases de datos.
-  - `DB_PASSWORD`: Contraseña del usuario.
+🔹 **Credenciales de Conexión:**
+   - `DB_HOST`: Dirección IP o nombre del servidor PostgreSQL.
+   - `DB_PORT`: Puerto de conexión (por defecto, 5432).
+   - `DB_USER`: Usuario con permisos adecuados.
+   - `DB_PASSWORD`: Contraseña del usuario.
 
-- **Consulta de Bases de Datos:**
-  - `GET_DATABASES_QUERY`: Consulta SQL para listar las bases de datos a las que se les aplicará el script. Puedes modificarla para excluir o incluir bases de datos según tus necesidades.
+🔹 **Consulta de Bases de Datos:**
+   - `GET_DATABASES_QUERY`: Define cómo listar las bases de datos a utilizar, permitiendo excluir ciertas bases si es necesario.
 
-- **Clave de Acceso:**
-  - En la función `check_password`, reemplaza `"aqui_tu_hash"` por el hash SHA-256 de la clave que desees utilizar. Puedes generar el hash con herramientas en línea o mediante un pequeño script en Python.
+🔹 **Clave de Acceso:**
+   - En la función `check_password`, reemplaza `"aqui_tu_hash"` por el hash SHA-256 de la clave de acceso.
+   - Puedes generar el hash con la siguiente línea en Python:
+     ```python
+     import hashlib
+     print(hashlib.sha256("tu_clave_secreta".encode()).hexdigest())
+     ```
 
-## Uso
+---
 
-1. **Ejecutar el Script:**
+## ▶️ Uso del Script
 
-   Ejecuta el script desde la terminal:
-
+1️⃣ **Ejecutar el Script:**
    ```bash
    python __init__.py
    ```
 
-2. **Autenticación:**
-   - Se solicitará ingresar la clave de acceso de manera oculta.
-   - Si la clave es correcta, se mostrará el arte ASCII y se continuará con la ejecución.
+2️⃣ **Autenticación:**
+   - Se solicitará una clave de acceso de manera oculta.
+   - Si la clave es correcta, se mostrará el arte ASCII y se continuará la ejecución.
 
-3. **Selección de Bases de Datos:**
-   - El script mostrará una lista de bases de datos disponibles.
-   - Podrás seleccionar las bases de datos ingresando los números correspondientes (separados por comas) o escribir `all` para seleccionar todas.
+3️⃣ **Selección de Bases de Datos:**
+   - Se mostrará una lista de bases de datos disponibles.
+   - Ingresa los números correspondientes (separados por comas) o escribe `all` para seleccionar todas.
 
-4. **Ingreso y Ejecución del Script SQL:**
-   - Ingresa el script SQL que deseas ejecutar (puede incluir múltiples consultas separadas por punto y coma).
-   - Confirma la ejecución cuando se te solicite.
+4️⃣ **Ingreso y Ejecución del Script SQL:**
+   - Ingresa el código SQL que deseas ejecutar.
+   - Confirma antes de proceder con la ejecución.
 
-## Consideraciones de Seguridad
+---
 
-- **Validación de Clave:** La clave se valida mediante la comparación de su hash SHA-256, evitando almacenar contraseñas en texto plano.
-- **Acceso al Servidor:** Asegúrate de restringir el acceso a las credenciales del servidor PostgreSQL y de ejecutar el script en entornos seguros.
-- **Modificación del Hash:** No olvides actualizar el valor de `stored_hash` en la función `check_password` para utilizar tu clave real.
+## 🔐 Consideraciones de Seguridad
 
-## Créditos
+🔸 **Clave Protegida:** Se valida mediante hash SHA-256, evitando almacenamiento en texto plano.  
+🔸 **Restricción de Accesos:** Mantén seguras las credenciales del servidor PostgreSQL.  
+🔸 **Modificación del Hash:** Personaliza `stored_hash` en `check_password` para utilizar una clave segura.  
 
-- **Creado por:** JLuuu.java  
-- **Última actualización:** 2025-03-18  
-- **Linkedin:** [linkedin.com/in/juan-luis-mendoza-romero](https://www.linkedin.com/in/juan-luis-mendoza-romero-27bb0b221/)
+---
 
-## Licencia
+## 📌 Créditos
 
-Este proyecto se distribuye bajo la licencia [MIT](LICENSE) (o la licencia que prefieras).
+👨‍💻 **Desarrollado por:** JLuuu.java  
+📅 **Última actualización:** 2025-03-18  
+🔗 **LinkedIn:** [linkedin.com/in/juan-luis-mendoza-romero](https://www.linkedin.com/in/juan-luis-mendoza-romero-27bb0b221/)  
+
+---
+
+## 📜 Licencia
+
+Este proyecto se distribuye bajo la licencia [MIT](LICENSE).  
+
+---
 
